@@ -1,4 +1,6 @@
 # Project started by Edius Ahlqvistus 2026-10-18 with the aim of learning Python.
+from unittest import case
+
 from pigeon import Pigeon
 
 MAX_PIGEON_NAME_LENGTH = 20
@@ -7,7 +9,6 @@ MAX_PIGEON_NAME_LENGTH = 20
 def main() -> None:
     while True:
         display_main_menu()
-
         choice = input("Choose an option from the menu: ").strip().lower()
 
         match choice:
@@ -25,8 +26,26 @@ def main() -> None:
 
 def game_loop(pigeon: Pigeon) -> None:
     while True:
-        print(f"\nYou are taking care of {pigeon.name}!")
-        break
+        display_pigeon_menu(pigeon)
+        choice = input("Choose an option from the menu: ").strip().lower()
+
+        # tmp messages, call functions later
+        match choice:
+            case "1":
+                print(f"You see {pigeon.name}, he looks a bit hungry.")
+            case "2":
+                print(f"You give {pigeon.name} a banana, which it devours!")
+            case "3":
+                return
+            case _:
+                print("Invalid option!")
+
+
+def display_pigeon_menu(pigeon: Pigeon) -> None:
+    print(f"\n=== {pigeon.name.upper()} ===\n")
+    print(f"1. Examine {pigeon.name}.")
+    print(f"2. Feed {pigeon.name}.")
+    print("3. Main menu.")
 
 
 def new_game() -> Pigeon:
