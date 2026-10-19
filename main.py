@@ -1,5 +1,5 @@
 # Project started by Edius Ahlqvistus 2026-10-18 with the aim of learning Python.
-from unittest import case
+
 
 from pigeon import Pigeon
 
@@ -34,7 +34,7 @@ def game_loop(pigeon: Pigeon) -> None:
             case "1":
                 print(f"You see {pigeon.name}, he looks a bit hungry.")
             case "2":
-                print(f"You give {pigeon.name} a banana, which it devours!")
+                pigeon.feed()
             case "3":
                 return
             case _:
