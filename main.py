@@ -1,8 +1,8 @@
 # Project started by Edius Ahlqvistus 2026-10-18 with the aim of learning Python.
 
-
 from pigeon import Pigeon
 
+DEBUG_MODE = True
 MAX_PIGEON_NAME_LENGTH = 20
 
 
@@ -26,19 +26,38 @@ def main() -> None:
 
 def game_loop(pigeon: Pigeon) -> None:
     while True:
+        pigeon.check_welfare()
+
+        if pigeon.is_adopted:
+            print(
+                f"{pigeon.name} has been rescued by the local animal welfare authorities. "
+                "After a full recovery, your former companion has found a new home.\n\n"
+                "Perhaps you should collect stones instead?"
+            )
+            return
+
         display_pigeon_menu(pigeon)
         choice = input("Choose an option from the menu: ").strip().lower()
 
-        # tmp messages, call functions later
         match choice:
             case "1":
-                print(f"You see {pigeon.name}, he looks a bit hungry.")
+                examine_pigeon(pigeon)
             case "2":
                 pigeon.feed()
             case "3":
                 return
             case _:
                 print("Invalid option!")
+
+
+def examine_pigeon(pigeon: Pigeon) -> None:
+    print(f"\nYou carefully examine {pigeon.name} to see how it is doing.\n")
+    print(f"Health: {pigeon.current_health} / {pigeon.max_health}")
+    print(f"Hunger: {pigeon.hunger}")
+
+    if DEBUG_MODE:
+        print("\033[93mDebug mode:\033[0m")
+        print(f"\033[93mOvereating: {pigeon.overeating}\033[0m")
 
 
 def display_pigeon_menu(pigeon: Pigeon) -> None:
